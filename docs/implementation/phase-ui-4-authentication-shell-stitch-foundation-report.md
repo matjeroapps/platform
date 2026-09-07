@@ -511,6 +511,27 @@ Application repositories must never maintain local modifications of UI SDK inter
 - ✅ No local UI SDK ownership remains in platform
 - ✅ Imports resolve from node_modules
 
+## Docker Deployment
+
+The production image is defined in `docker/web-app.Dockerfile` and uses a
+multi-stage Node 22 Alpine build. Dependencies are installed with `npm ci`,
+Next.js is built with `output: "standalone"`, and the runtime starts the
+standalone server with `node server.js` on port 3000.
+
+The container expects these environment variables when authentication and
+platform integrations are enabled:
+
+- `NEXT_PUBLIC_APP_URL` — canonical public application URL
+- `NEXT_PUBLIC_ZITADEL_DOMAIN` — Zitadel domain used by the browser login flow
+- `NEXT_PUBLIC_ZITADEL_CLIENT_ID` — public Zitadel client ID
+- `ZITADEL_DOMAIN` — server-side Zitadel domain
+- `ZITADEL_CLIENT_ID` — server-side Zitadel client ID
+- `ZITADEL_CLIENT_SECRET` — server-side Zitadel client secret
+- `CORE_API_BASE_URL` — Core API base URL for server-side integrations
+
+The image does not include development dependencies or the local `ui-sdk`
+workspace link. `@matjerhub/ui-sdk` is resolved from its published npm package.
+
 ---
 
 **Report Generated:** 2026-09-07  
