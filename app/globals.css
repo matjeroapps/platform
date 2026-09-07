@@ -1,0 +1,49 @@
+@import "@matjerhub/ui-sdk/styles.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+
+  body {
+    background-color: #faf8ff;
+    color: #131b2e;
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Logical CSS helper utilities for LTR/RTL support */
+.dir-rtl {
+  direction: rtl;
+}
+
+.dir-ltr {
+  direction: ltr;
+}
+
+/* Smooth ambient glows */
+.hero-gradient {
+  background: radial-gradient(circle at 50% 0%, rgba(13, 92, 70, 0.15) 0%, rgba(2, 132, 199, 0.05) 50%, rgba(250, 248, 255, 0) 100%);
+}
+
+.card-hover-effect {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover-effect:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(13, 92, 70, 0.08), 0 8px 10px -6px rgba(13, 92, 70, 0.04);
+}
