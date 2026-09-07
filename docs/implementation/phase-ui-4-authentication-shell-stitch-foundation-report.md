@@ -455,6 +455,64 @@ packages/ui/src/
 
 ---
 
+## UI SDK Ownership Correction
+
+### Why Changes Moved to UI SDK
+
+During Phase UI-4 implementation, design token updates and reusable component modifications were initially made in the platform repository's symlinked `ui-sdk` directory. This violated the MatjerHub UI ownership rule where `@matjerhub/ui-sdk` is the single source of truth for:
+
+- Design tokens
+- Reusable components
+- Shared layouts
+- Accessibility primitives
+
+Application repositories must never maintain local modifications of UI SDK internals.
+
+### Correction Applied
+
+**Repository:** `matjeroapps/ui-sdk`  
+**Branch:** `feature/ui-sdk-stitch-alignment`  
+**Version:** `@matjerhub/ui-sdk@0.1.2`
+
+**Changes Moved to UI SDK:**
+- `packages/ui/src/styles/tokens.css` — Complete Stitch design system tokens (colors, typography, spacing, elevation, RTL)
+- `packages/ui/src/components/Button.tsx` — Stitch-aligned variants (44px height, inset highlight, semantic variants)
+- `packages/ui/src/components/Card.tsx` — Surface elevation system, padding variants, hover elevation
+- `packages/ui/src/components/Badge.tsx` — Operational status pills (24px height, 6px indicator dot, semantic variants)
+- `packages/ui/src/components/Input.tsx` — 40px height, 6px radius, focus ring with halo, SSR-safe
+- `packages/ui/src/shell/DashboardLayout.tsx` — `onProfileClick`, `onSettingsClick` props
+- `packages/ui/src/shell/TopNavigation.tsx` — Pass-through user menu handlers
+
+**Platform Updates:**
+- Updated dependency to `@matjerhub/ui-sdk@0.1.2`
+- Removed any local UI SDK overrides
+- Platform now consumes UI SDK exclusively through npm/package link
+
+### New Package Version
+
+| Package | Old Version | New Version |
+|---------|-------------|-------------|
+| `@matjerhub/ui-sdk` | 0.1.1 | 0.1.2 |
+
+### Platform Dependency Update
+
+```json
+// package.json
+{
+  "dependencies": {
+    "@matjerhub/ui-sdk": "0.1.2"
+  }
+}
+```
+
+**Verification:**
+- ✅ UI SDK build, typecheck, lint, tests pass
+- ✅ Platform build, typecheck, lint, tests pass
+- ✅ No local UI SDK ownership remains in platform
+- ✅ Imports resolve from node_modules
+
+---
+
 **Report Generated:** 2026-09-07  
 **Author:** ZCode Implementation Agent  
 **Branch:** `feature/ui-4-authentication-shell-stitch-foundation`
