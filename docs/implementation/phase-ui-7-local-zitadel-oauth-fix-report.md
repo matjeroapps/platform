@@ -33,4 +33,4 @@ Compose likewise maps the framework-specific client-ID variables from `ZITADEL_P
 
 With the platform web service and local Zitadel running, select **Continue with MatjerHub SSO**. The browser must navigate to `http://localhost:8081/oauth/v2/authorize` (or the issuer's configured authorize endpoint), return to the registered `/auth/callback`, exchange the authorization code, and create the application session. A cloud URL, an `https://` prefix added to the local issuer, or an unregistered callback URI indicates configuration drift.
 
-The provider needs to be initialized with `ZITADEL_EXTERNALDOMAIN=localhost` and TLS disabled for this local HTTP setup. Docker's internal service URL remains private and is never shown to browser users.
+The provider needs to be initialized with `ZITADEL_EXTERNAL_DOMAIN=localhost` and TLS disabled for this local HTTP setup. Docker's internal service URL remains private and is never shown to browser users.
