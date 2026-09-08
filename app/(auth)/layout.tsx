@@ -3,7 +3,7 @@ import { constructMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = constructMetadata({
   title: "Sign In — MatjerHub Platform",
-  description: "Sign in to MatjerHub Platform via Zitadel Single Sign-On",
+  description: "Sign in to MatjerHub Platform via MatjerHub SSO",
   path: "/login",
   noIndex: true,
 });

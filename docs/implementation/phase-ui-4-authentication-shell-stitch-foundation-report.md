@@ -413,7 +413,7 @@ packages/ui/src/
 
 ## Known Limitations
 
-1. **No Registration Flow** — Only login via Zitadel SSO (by design)
+1. **No Registration Flow** — Only login via MatjerHub SSO (by design)
 2. **No Password Management** — Delegated to Zitadel
 3. **No MFA UI** — Handled by Zitadel; platform receives authenticated session
 4. **Middleware Tenant Check** — Not yet implemented (placeholder in config)
@@ -446,7 +446,7 @@ packages/ui/src/
 
 ## Next Steps (Post Phase UI-4)
 
-1. **Connect Real Zitadel** — Configure `ZITADEL_DOMAIN`, `ZITADEL_CLIENT_ID`, `ZITADEL_CLIENT_SECRET`
+1. **Connect the identity provider** — Configure `ZITADEL_ISSUER`, `ZITADEL_CLIENT_ID`, `ZITADEL_CLIENT_SECRET`
 2. **E2E Testing** — Add Playwright tests for auth flows (fake-core + OIDC stub)
 3. **Role/Permission Enrichment** — Implement `permissions` field in NavItem, middleware checks
 4. **Tenant Context** — Add tenant resolution to session, middleware tenant validation
@@ -522,9 +522,9 @@ The container expects these environment variables when authentication and
 platform integrations are enabled:
 
 - `NEXT_PUBLIC_APP_URL` — canonical public application URL
-- `NEXT_PUBLIC_ZITADEL_DOMAIN` — Zitadel domain used by the browser login flow
+- `NEXT_PUBLIC_ZITADEL_ISSUER` — issuer URL used by the browser login flow
 - `NEXT_PUBLIC_ZITADEL_CLIENT_ID` — public Zitadel client ID
-- `ZITADEL_DOMAIN` — server-side Zitadel domain
+- `ZITADEL_ISSUER` — server-side issuer URL
 - `ZITADEL_CLIENT_ID` — server-side Zitadel client ID
 - `ZITADEL_CLIENT_SECRET` — server-side Zitadel client secret
 - `CORE_API_BASE_URL` — Core API base URL for server-side integrations

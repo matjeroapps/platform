@@ -2,7 +2,7 @@
 
 ## Summary
 
-Phase UI-3 transforms the MatjerHub Platform repository from an initial placeholder into a production-ready, high-performance Next.js App Router platform application. The implementation integrates `@matjerhub/ui-sdk` for all UI primitives, translates official Stitch designs into modern React Server Components, establishes comprehensive SEO metadata, dynamic XML sitemaps, robots.txt, JSON-LD structured data, English/Arabic LTR/RTL i18n support, and authentication boundary gateways compatible with Zitadel Single Sign-On.
+Phase UI-3 transforms the MatjerHub Platform repository from an initial placeholder into a production-ready, high-performance Next.js App Router platform application. The implementation integrates `@matjerhub/ui-sdk` for all UI primitives, translates official Stitch designs into modern React Server Components, establishes comprehensive SEO metadata, dynamic XML sitemaps, robots.txt, JSON-LD structured data, English/Arabic LTR/RTL i18n support, and authentication boundary gateways compatible with MatjerHub SSO.
 
 ---
 
@@ -20,7 +20,7 @@ Phase UI-3 transforms the MatjerHub Platform repository from an initial placehol
 platform/
 ├── app/
 │   ├── (auth)/
-│   │   └── login/page.tsx               # Zitadel SSO Gateway Boundary
+│   │   └── login/page.tsx               # MatjerHub SSO Gateway Boundary
 │   ├── (dashboard)/
 │   │   ├── layout.tsx                   # Protected route boundary wrapper
 │   │   └── page.tsx                     # Internal dashboard placeholder
