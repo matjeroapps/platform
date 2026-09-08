@@ -7,7 +7,7 @@ import { Button, Card } from "@matjerhub/ui-sdk";
 /**
  * Login Page - Stitch-Based Design
  * 
- * Unified Sign-In page for MatjerHub Platform using Zitadel OIDC.
+ * Unified sign-in page for MatjerHub Platform.
  * Based on Stitch design: "MatjerHub Sign In - Unified Commerce Gateway"
  */
 
@@ -79,11 +79,11 @@ export default function LoginPage({ searchParams }: LoginPageProps) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
               </span>
-              Zitadel OIDC Identity
+              MatjerHub SSO
             </span>
             <h1 className="font-heading font-bold text-2xl text-slate-900">Sign In to Platform</h1>
             <p className="text-xs text-slate-500">
-              Authenticate via Zitadel Single Sign-On to access the MatjerHub Platform.
+              Sign in securely to access the MatjerHub Platform.
             </p>
           </div>
 
@@ -107,14 +107,14 @@ export default function LoginPage({ searchParams }: LoginPageProps) {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
-                Redirecting to Zitadel...
+                Redirecting to MatjerHub SSO...
               </>
             ) : (
               <>
                 <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.55v-1.8c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.7-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.7 1.03 1.59 1.03 2.7 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .31.17.63.67.55C19.14 20.16 22 16.42 22 12c0-5.52-4.477-10-10-10z" />
                 </svg>
-                Continue with Zitadel SSO
+                Continue with MatjerHub SSO
               </>
             )}
           </Button>
@@ -193,10 +193,10 @@ export default function LoginPage({ searchParams }: LoginPageProps) {
   );
 }
 
-// Zitadel configuration (client-side)
+// Browser-safe OIDC configuration. The issuer is supplied by the deployment.
 function getZitadelConfig() {
   return {
-    domain: process.env.NEXT_PUBLIC_ZITADEL_DOMAIN || "matjerhub.zitadel.cloud",
+    issuer: (process.env.NEXT_PUBLIC_ZITADEL_ISSUER || "http://localhost:8081").replace(/\/$/, ""),
     clientId: process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID || "",
     redirectUri: `${window.location.origin}/auth/callback`,
     scopes: ["openid", "profile", "email"],
@@ -204,7 +204,7 @@ function getZitadelConfig() {
 }
 
 function getZitadelEndpoints(config: ReturnType<typeof getZitadelConfig>) {
-  const base = `https://${config.domain}`;
+  const base = config.issuer;
   return {
     authorization: `${base}/oauth/v2/authorize`,
   };

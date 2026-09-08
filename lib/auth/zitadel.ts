@@ -4,12 +4,12 @@ import type { Session } from "./session";
  * Zitadel Configuration
  * 
  * This module provides the Zitadel OIDC configuration for the MatjerHub Platform.
- * All authentication flows are handled via Zitadel Single Sign-On.
+ * The identity provider is an implementation detail; the product exposes MatjerHub SSO.
  */
 
 export interface ZitadelConfig {
-  /** Zitadel instance domain (e.g., 'matjerhub.zitadel.cloud') */
-  domain: string;
+  /** OIDC issuer URL (e.g., 'http://localhost:8081'). */
+  issuer: string;
   /** Client ID registered in Zitadel for this application */
   clientId: string;
   /** Client secret for confidential client flows */
@@ -41,13 +41,13 @@ export interface ZitadelEndpoints {
  * Build Zitadel configuration from environment variables
  */
 export function getZitadelConfig(): ZitadelConfig {
-  const domain = process.env.ZITADEL_DOMAIN || "matjerhub.zitadel.cloud";
-  const clientId = process.env.ZITADEL_CLIENT_ID || "";
+  const issuer = (process.env.ZITADEL_ISSUER || process.env.NEXT_PUBLIC_ZITADEL_ISSUER || "http://localhost:8081").replace(/\/$/, "");
+  const clientId = process.env.ZITADEL_CLIENT_ID || process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID || "";
   const clientSecret = process.env.ZITADEL_CLIENT_SECRET || "";
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
   return {
-    domain,
+    issuer,
     clientId,
     clientSecret,
     redirectUri: `${baseUrl}/auth/callback`,
@@ -57,10 +57,10 @@ export function getZitadelConfig(): ZitadelConfig {
 }
 
 /**
- * Build Zitadel OIDC endpoints from domain
+ * Build OIDC endpoints from the configured issuer URL.
  */
 export function getZitadelEndpoints(config: ZitadelConfig): ZitadelEndpoints {
-  const base = `https://${config.domain}`;
+  const base = config.issuer;
   return {
     authorization: `${base}/oauth/v2/authorize`,
     token: `${base}/oauth/v2/token`,

@@ -27,7 +27,7 @@ export function IntegrationsGrid() {
       name: "Finance, Escrow & ERPs",
       badge: "Institutional Sync",
       items: [
-        { name: "Zitadel SSO", status: "Unified Auth", desc: "Single sign-on identity management." },
+        { name: "MatjerHub SSO", status: "Unified Auth", desc: "Single sign-on identity management." },
         { name: "ZATCA E-Invoicing", status: "Phase 2 Tax", desc: "Automated Saudi VAT electronic invoice XML generation." },
         { name: "Odoo / SAP ERP", status: "Enterprise Sync", desc: "Factory inventory & GL ledger synchronization." },
         { name: "PayTabs / Moyasar", status: "Gateway Escrow", desc: "Regional payment gateway payout routing." }
